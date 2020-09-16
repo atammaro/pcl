@@ -139,7 +139,7 @@ pcl::getMinMax3D (const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
   // If dense, no need to check for NaNs
   if (cloud->is_dense)
   {
-    for (const int &index : indices)
+    for (const auto &index : indices)
     {
       // Get the distance value
       const std::uint8_t* pt_data = reinterpret_cast<const std::uint8_t*> (&(*cloud)[index]);
@@ -165,7 +165,7 @@ pcl::getMinMax3D (const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
   }
   else
   {
-    for (const int &index : indices)
+    for (const auto &index : indices)
     {
       // Get the distance value
       const std::uint8_t* pt_data = reinterpret_cast<const std::uint8_t*> (&(*cloud)[index]);
@@ -218,7 +218,7 @@ pcl::VoxelGrid<PointT>::applyFilter (PointCloud &output)
   {
     PCL_WARN ("[pcl::%s::applyFilter] No input dataset given!\n", getClassName ().c_str ());
     output.width = output.height = 0;
-    output.points.clear ();
+    output.clear ();
     return;
   }
 
@@ -366,7 +366,7 @@ pcl::VoxelGrid<PointT>::applyFilter (PointCloud &output)
   }
 
   // Fourth pass: compute centroids, insert them into their final position
-  output.points.resize (total);
+  output.resize (total);
   if (save_leaf_layout_)
   {
     try

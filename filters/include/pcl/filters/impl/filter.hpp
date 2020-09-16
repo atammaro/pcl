@@ -37,7 +37,7 @@
 
 #pragma once
 
-#include <pcl/pcl_macros.h>
+#include <pcl/pcl_exports.h> // for PCL_EXPORTS
 #include <pcl/common/point_tests.h> // for pcl::isFinite
 #include <pcl/filters/filter.h>
 
@@ -51,7 +51,7 @@ pcl::removeNaNFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
   if (&cloud_in != &cloud_out)
   {
     cloud_out.header = cloud_in.header;
-    cloud_out.points.resize (cloud_in.size ());
+    cloud_out.resize (cloud_in.size ());
     cloud_out.sensor_origin_ = cloud_in.sensor_origin_;
     cloud_out.sensor_orientation_ = cloud_in.sensor_orientation_;
   }
@@ -82,7 +82,7 @@ pcl::removeNaNFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
     if (j != cloud_in.size ())
     {
       // Resize to the correct size
-      cloud_out.points.resize (j);
+      cloud_out.resize (j);
       index.resize (j);
     }
 
@@ -104,7 +104,7 @@ pcl::removeNaNNormalsFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
   if (&cloud_in != &cloud_out)
   {
     cloud_out.header = cloud_in.header;
-    cloud_out.points.resize (cloud_in.size ());
+    cloud_out.resize (cloud_in.size ());
     cloud_out.sensor_origin_ = cloud_in.sensor_origin_;
     cloud_out.sensor_orientation_ = cloud_in.sensor_orientation_;
   }
@@ -130,7 +130,7 @@ pcl::removeNaNNormalsFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
   if (j != cloud_in.size ())
   {
     // Resize to the correct size
-    cloud_out.points.resize (j);
+    cloud_out.resize (j);
     index.resize (j);
   }
 

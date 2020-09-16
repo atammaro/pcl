@@ -46,6 +46,8 @@
 #include <pcl/filters/local_maximum.h>
 #include <pcl/filters/project_inliers.h>
 #include <pcl/ModelCoefficients.h>
+#include <pcl/search/organized.h> // for OrganizedNeighbor
+#include <pcl/search/kdtree.h> // for KdTree
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template <typename PointT> void
@@ -56,7 +58,7 @@ pcl::LocalMaximum<PointT>::applyFilter (PointCloud &output)
   {
     PCL_WARN ("[pcl::%s::applyFilter] No input dataset given!\n", getClassName ().c_str ());
     output.width = output.height = 0;
-    output.points.clear ();
+    output.clear ();
     return;
   }
 

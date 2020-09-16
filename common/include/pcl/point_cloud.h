@@ -51,7 +51,6 @@
 #include <pcl/type_traits.h>
 #include <pcl/types.h>
 
-#include <algorithm>
 #include <utility>
 #include <vector>
 
@@ -190,15 +189,15 @@ namespace pcl
         * \param[in] pc the cloud to copy into this
         * \todo Erase once mapping_ is removed.
         */
-      // Ignore unknown pragma warning on MSVC (4996)
-      #pragma warning(push)
-      #pragma warning(disable: 4068)
-      // Ignore deprecated warning on clang compilers
-      #pragma clang diagnostic push
-      #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+      // Ignore deprecation warnings GNU C Compiler
+      #ifdef __GNUC__
+      #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+      #pragma GCC diagnostic push
+      #endif
       PointCloud (const PointCloud<PointT> &pc) = default;
-      #pragma clang diagnostic pop
-      #pragma warning(pop)
+      #ifdef __GNUC__
+      #pragma GCC diagnostic pop
+      #endif
 
       /** \brief Copy constructor from point cloud subset
         * \param[in] pc the cloud to copy into this
@@ -258,7 +257,7 @@ namespace pcl
 
         // libstdc++ (GCC) on calling reserve allocates new memory, copies and deallocates old vector
         // This causes a drastic performance hit. Prefer not to use reserve with libstdc++ (default on clang)
-        cloud1.points.insert (cloud1.points.end (), cloud2.points.begin (), cloud2.points.end ());
+        cloud1.insert (cloud1.end (), cloud2.begin (), cloud2.end ());
 
         cloud1.width    = cloud1.size ();
         cloud1.height   = 1;

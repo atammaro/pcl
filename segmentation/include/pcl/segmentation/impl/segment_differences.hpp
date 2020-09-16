@@ -41,6 +41,8 @@
 
 #include <pcl/common/io.h>
 #include <pcl/common/point_tests.h> // for pcl::isFinite
+#include <pcl/search/organized.h> // for OrganizedNeighbor
+#include <pcl/search/kdtree.h> // for KdTree
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,7 +95,7 @@ pcl::SegmentDifferences<PointT>::segment (PointCloud &output)
   if (!initCompute ()) 
   {
     output.width = output.height = 0;
-    output.points.clear ();
+    output.clear ();
     return;
   }
 
